@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:shoe_ecommerce_app/details_page.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({
     super.key,
-    required this.label,
+    required this.title,
     required this.price,
     required this.imgUrl,
     required this.company,
     required this.sizes,
   });
 
-  final String label;
-  final String price;
+  final String title;
+  final double price;
   final String imgUrl;
   final String company;
   final List<int> sizes;
@@ -26,7 +27,18 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: null,
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailsPage(
+                title: widget.title,
+                imgUrl: widget.imgUrl,
+                price: widget.price,
+                sizes: widget.sizes,
+              ),
+            ));
+      },
       child: Listener(
         onPointerDown: (e) {
           setState(() {
@@ -56,9 +68,8 @@ class _ProductCardState extends State<ProductCard> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.label,
-                    style: const TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.bold),
+                    widget.title,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                 ),
                 Align(

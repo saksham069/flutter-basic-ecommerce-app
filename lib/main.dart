@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoe_ecommerce_app/details_page.dart';
 import 'package:shoe_ecommerce_app/home_page.dart';
 
 void main() {
@@ -18,6 +19,17 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.yellow,
           primary: Colors.yellow,
           secondary: Colors.grey[300],
+        ),
+        appBarTheme: AppBarTheme(color: Colors.grey[300], toolbarHeight: 70),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+            fontSize: 35,
+            fontWeight: FontWeight.bold,
+          ),
+          displayMedium: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         useMaterial3: true,
       ),
