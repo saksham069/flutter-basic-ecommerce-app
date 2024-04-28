@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoe_ecommerce_app/details_page.dart';
 import 'package:shoe_ecommerce_app/home_page.dart';
 
 void main() {
