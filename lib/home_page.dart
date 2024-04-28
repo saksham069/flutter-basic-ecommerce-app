@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shoe_ecommerce_app/global_variables.dart';
 import 'package:shoe_ecommerce_app/product_card.dart';
 
@@ -34,13 +32,10 @@ class _HomePageState extends State<HomePage> {
                   height: 120,
                   child: Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         child: Text(
                           "Shoes\nCollection",
-                          style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.displayLarge,
                         ),
                       ),
                       Expanded(
@@ -123,8 +118,8 @@ class _HomePageState extends State<HomePage> {
                     return Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: ProductCard(
-                        label: p["title"],
-                        price: p["price"].toString(),
+                        title: p["title"],
+                        price: p["price"],
                         imgUrl: p["imageUrl"],
                         company: p["company"],
                         sizes: p["sizes"],

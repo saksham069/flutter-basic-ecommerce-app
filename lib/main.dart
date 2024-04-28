@@ -19,6 +19,17 @@ class MyApp extends StatelessWidget {
           primary: Colors.yellow,
           secondary: Colors.grey[300],
         ),
+        appBarTheme: AppBarTheme(color: Colors.grey[300], toolbarHeight: 70),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+            fontSize: 35,
+            fontWeight: FontWeight.bold,
+          ),
+          displayMedium: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         useMaterial3: true,
       ),
       home: const HomePage(),
