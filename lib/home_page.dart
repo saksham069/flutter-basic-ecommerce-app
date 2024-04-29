@@ -27,6 +27,8 @@ class _HomePageState extends State<HomePage> {
         children: pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedFontSize: 0,
+        unselectedFontSize: 0,
         currentIndex: navbarIndex,
         onTap: (value) {
           setState(() {
@@ -35,11 +37,17 @@ class _HomePageState extends State<HomePage> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
+            icon: Icon(
+              Icons.home_filled,
+              size: 35,
+            ),
             label: "",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_rounded),
+            icon: Icon(
+              Icons.shopping_cart_rounded,
+              size: 35,
+            ),
             label: "",
           ),
         ],

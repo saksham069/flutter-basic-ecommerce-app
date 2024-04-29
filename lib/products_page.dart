@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shoe_ecommerce_app/global_variables.dart';
 import 'package:shoe_ecommerce_app/product_card.dart';
 
@@ -14,12 +11,12 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
   List<String> labels = ["All", "Adidas", "Nike", "Bata"];
-  late int index;
+  late int labelIndex;
 
   @override
   void initState() {
     super.initState();
-    index = 0;
+    labelIndex = 0;
   }
 
   @override
@@ -77,11 +74,11 @@ class _ProductsPageState extends State<ProductsPage> {
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    index = key;
+                                    labelIndex = key;
                                   });
                                 },
                                 child: Chip(
-                                    backgroundColor: (key == index)
+                                    backgroundColor: (key == labelIndex)
                                         ? Theme.of(context).colorScheme.primary
                                         : Theme.of(context)
                                             .colorScheme
@@ -112,7 +109,12 @@ class _ProductsPageState extends State<ProductsPage> {
               child: ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  final p = products[index];
+                  final p = (labelIndex == 0)
+                      ? products[index]
+                      : products
+                          .where((element) =>
+                              element["company"] == labels[labelIndex])
+                          .elementAt(index);
                   return Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: ProductCard(
@@ -124,7 +126,12 @@ class _ProductsPageState extends State<ProductsPage> {
                     ),
                   );
                 },
-                itemCount: products.length,
+                itemCount: (labelIndex == 0)
+                    ? products.length
+                    : products
+                        .where((element) =>
+                            element["company"] == labels[labelIndex])
+                        .length,
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 20,
                 ),
