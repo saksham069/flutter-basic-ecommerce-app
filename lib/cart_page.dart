@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shoe_ecommerce_app/global_variables.dart';
+import 'package:provider/provider.dart';
+import 'package:shoe_ecommerce_app/cart_provider.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -11,6 +12,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context).cart;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Cart"),
@@ -26,7 +28,11 @@ class _CartPageState extends State<CartPage> {
                       Icons.delete,
                       color: Colors.red,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      //ask confirmation
+                      Provider.of<CartProvider>(context, listen: false)
+                          .remove(cart[index]);
+                    },
                   ),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +41,7 @@ class _CartPageState extends State<CartPage> {
                         cart[index]["title"] as String,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text("size: ${(cart[index]["sizes"] as List<int>)[0]}")
+                      Text("size: ${(cart[index]["size"])}")
                     ],
                   ),
                 ),

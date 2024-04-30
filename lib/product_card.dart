@@ -4,18 +4,10 @@ import 'package:shoe_ecommerce_app/details_page.dart';
 class ProductCard extends StatefulWidget {
   const ProductCard({
     super.key,
-    required this.title,
-    required this.price,
-    required this.imgUrl,
-    required this.company,
-    required this.sizes,
+    required this.product,
   });
 
-  final String title;
-  final double price;
-  final String imgUrl;
-  final String company;
-  final List<int> sizes;
+  final Map<String, dynamic> product;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -32,10 +24,7 @@ class _ProductCardState extends State<ProductCard> {
             context,
             MaterialPageRoute(
               builder: (context) => DetailsPage(
-                title: widget.title,
-                imgUrl: widget.imgUrl,
-                price: widget.price,
-                sizes: widget.sizes,
+                product: widget.product,
               ),
             ));
       },
@@ -68,21 +57,21 @@ class _ProductCardState extends State<ProductCard> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.title,
+                    widget.product["title"],
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "\$${widget.price}",
+                    "\$${widget.product["price"]}",
                     style: const TextStyle(fontSize: 22),
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                Image.asset(widget.imgUrl),
+                Image.asset(widget.product["imageUrl"]),
               ],
             ),
           ),

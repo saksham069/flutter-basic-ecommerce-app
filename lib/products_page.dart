@@ -118,11 +118,7 @@ class _ProductsPageState extends State<ProductsPage> {
                   return Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: ProductCard(
-                      title: p["title"],
-                      price: p["price"],
-                      imgUrl: p["imageUrl"],
-                      company: p["company"],
-                      sizes: p["sizes"],
+                      product: p,
                     ),
                   );
                 },

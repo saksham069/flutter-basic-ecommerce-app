@@ -1,19 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:shoe_ecommerce_app/cart_provider.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({
     super.key,
-    required this.title,
-    required this.price,
-    required this.imgUrl,
-    required this.sizes,
+    required this.product,
   });
-  final String title;
-  final double price;
-  final String imgUrl;
-  final List<int> sizes;
+  final Map<String, dynamic> product;
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -39,12 +33,12 @@ class _DetailsPageState extends State<DetailsPage> {
             Padding(
               padding: const EdgeInsets.only(top: 15),
               child: Text(
-                widget.title,
+                widget.product["title"],
                 style: Theme.of(context).textTheme.displayMedium,
               ),
             ),
             const Spacer(),
-            Image.asset(widget.imgUrl),
+            Image.asset(widget.product["imageUrl"]),
             const Spacer(),
             Container(
               width: double.infinity,
@@ -61,7 +55,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   children: [
                     Align(
                       alignment: AlignmentDirectional.centerStart,
-                      child: Text("\$${widget.price}",
+                      child: Text("\$${widget.product["price"]}",
                           style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -73,7 +67,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     SizedBox(
                       height: 30,
                       child: ListView.separated(
-                        itemCount: widget.sizes.length,
+                        itemCount: widget.product["sizes"].length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) => GestureDetector(
                           onTap: () {
@@ -88,7 +82,8 @@ class _DetailsPageState extends State<DetailsPage> {
                                 : Colors.white,
                             child: Align(
                                 alignment: Alignment.center,
-                                child: Text(widget.sizes[index].toString())),
+                                child: Text(
+                                    widget.product["sizes"][index].toString())),
                           ),
                         ),
                         separatorBuilder: (context, index) => const SizedBox(
@@ -103,7 +98,17 @@ class _DetailsPageState extends State<DetailsPage> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor:
                               Theme.of(context).colorScheme.primary),
-                      onPressed: () {},
+                      onPressed: () {
+                        if (selected == null) {
+                          // showSnackbar;
+                          return;
+                        }
+                        Map<String, Object> prodMap = Map.from(widget.product);
+                        prodMap.addAll(
+                            {"size": widget.product["sizes"][selected]});
+                        Provider.of<CartProvider>(context, listen: false)
+                            .add(prodMap);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Row(
