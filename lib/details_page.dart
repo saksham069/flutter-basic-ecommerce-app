@@ -99,15 +99,30 @@ class _DetailsPageState extends State<DetailsPage> {
                           backgroundColor:
                               Theme.of(context).colorScheme.primary),
                       onPressed: () {
-                        if (selected == null) {
-                          // showSnackbar;
-                          return;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            duration: Durations.extralong4,
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            dismissDirection: DismissDirection.down,
+                            content: Center(
+                              child: Text(
+                                (selected == null)
+                                    ? "Please select a shoe size"
+                                    : "Added to cart",
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ),
+                        );
+
+                        if (selected != null) {
+                          Map<String, Object> prodMap =
+                              Map.from(widget.product);
+                          prodMap.addAll(
+                              {"size": widget.product["sizes"][selected]});
+                          Provider.of<CartProvider>(context, listen: false)
+                              .add(prodMap);
                         }
-                        Map<String, Object> prodMap = Map.from(widget.product);
-                        prodMap.addAll(
-                            {"size": widget.product["sizes"][selected]});
-                        Provider.of<CartProvider>(context, listen: false)
-                            .add(prodMap);
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10),

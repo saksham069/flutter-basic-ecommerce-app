@@ -12,7 +12,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartProvider>(context).cart;
+    final cart = context.watch<CartProvider>().cart;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Cart"),
@@ -29,9 +29,45 @@ class _CartPageState extends State<CartPage> {
                       color: Colors.red,
                     ),
                     onPressed: () {
-                      //ask confirmation
-                      Provider.of<CartProvider>(context, listen: false)
-                          .remove(cart[index]);
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: const Text(
+                              "Are you sure you want to remove this product from your cart"),
+                          title: const Text("Delete"),
+                          actions: [
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.zero)),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                "no",
+                                style: TextStyle(
+                                    color: Colors.grey[800], fontSize: 20),
+                              ),
+                            ),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.zero)),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                context
+                                    .read<CartProvider>()
+                                    .remove(cart[index]);
+                              },
+                              child: const Text(
+                                "yes",
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 20),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
                     },
                   ),
                   title: Column(
